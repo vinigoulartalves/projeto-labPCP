@@ -1,24 +1,23 @@
 package br.com.projeto.labpcp.datasource.entity;
 
-import br.com.projeto.labpcp.utils.PapelEnum;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.io.Serializable;
+import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @Entity
 @Table(name = "papel")
-public class PapelEntity implements Serializable {
+public class PapelEntity implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 50, unique = true)
     private String nome;
 
-    public static String enumParaNome(PapelEnum papel) {
-        return papel.getDescricao();
+    @Override
+    public String getAuthority() {
+        return this.nome;
     }
 }
