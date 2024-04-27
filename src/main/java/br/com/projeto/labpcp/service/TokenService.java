@@ -45,6 +45,7 @@ public class TokenService {
             throw new RuntimeException("Erro, senha incorreta");
         }
 
+
         Instant now = Instant.now();
 
         String scope = usuarioEntity.getPapel().getNome();

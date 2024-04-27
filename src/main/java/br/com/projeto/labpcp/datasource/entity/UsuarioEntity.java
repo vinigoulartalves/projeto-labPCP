@@ -16,7 +16,7 @@ import java.util.Collection;
 public class UsuarioEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //TODO: Pular o id=1 manualmente
     private Long id;
 
     @Column(name = "login", nullable = false, length = 50, unique = true)
@@ -75,6 +75,5 @@ public class UsuarioEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
 }

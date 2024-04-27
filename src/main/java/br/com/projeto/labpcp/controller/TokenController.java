@@ -19,16 +19,9 @@ public class TokenController {
     private final TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> gerarToken(
-            @RequestBody LoginRequest loginRequest
-    ) {
-
+    public ResponseEntity<LoginResponse> gerarToken(@RequestBody LoginRequest loginRequest) {
         LoginResponse response = tokenService.gerarToken(loginRequest);
-
-        return ResponseEntity.ok(
-                response
-        );
-
+        return ResponseEntity.ok(response);
     }
 
 }
