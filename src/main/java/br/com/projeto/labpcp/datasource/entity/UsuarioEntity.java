@@ -24,7 +24,7 @@ public class UsuarioEntity implements UserDetails {
     @JsonIgnore
     private String senha;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_papel")
     private PapelEntity papel;
 

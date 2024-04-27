@@ -17,7 +17,7 @@ public class TurmaEntity {
     @Column(nullable = false, length = 255)
     private String nome;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_docente")
     private DocenteEntity docente;
 
