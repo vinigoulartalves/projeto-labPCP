@@ -22,5 +22,5 @@ public class DocenteEntity {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
-    private UsuarioEntity usuarioEntity;
+    private UsuarioEntity usuario;
 }

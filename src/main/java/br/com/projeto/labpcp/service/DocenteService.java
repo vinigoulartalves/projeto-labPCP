@@ -1,6 +1,7 @@
 package br.com.projeto.labpcp.service;
 
 
+import br.com.projeto.labpcp.controller.dto.request.AlterarDocenteRequest;
 import br.com.projeto.labpcp.controller.dto.request.InserirDocenteRequest;
 import br.com.projeto.labpcp.controller.dto.response.DocenteResponse;
 import br.com.projeto.labpcp.datasource.entity.DocenteEntity;
@@ -26,7 +27,10 @@ public class DocenteService {
     public DocenteResponse salvar(InserirDocenteRequest inserirDocenteRequest, String token) {
         String nomePapel = tokenService.buscaCampo(token, "scope");
 
-        if (!Objects.equals(nomePapel, "PROFESSOR") && !Objects.equals(nomePapel, "ADMIN")) {
+        if (!Objects.equals(nomePapel, "PROFESSOR")
+                && !Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "RECRUTADOR")
+                && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
         }
 
@@ -38,10 +42,10 @@ public class DocenteService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         DocenteEntity docenteEntity = new DocenteEntity();
-        docenteEntity.setUsuarioEntity(usuario);
+        docenteEntity.setUsuario(usuario);
         docenteEntity.setNome(inserirDocenteRequest.nome());
         docenteEntity.setDataEntrada(inserirDocenteRequest.dataEntrada());
-        docenteEntity.setUsuarioEntity(
+        docenteEntity.setUsuario(
                 usuarioRepository.findById(idUsuario)
                         .orElseThrow(() -> new RuntimeException("Usuário não encontrado ou inválido"))
         );
@@ -51,7 +55,7 @@ public class DocenteService {
         return new DocenteResponse(docenteSalva.getId(),
                 docenteSalva.getNome(),
                 docenteSalva.getDataEntrada(),
-                docenteSalva.getUsuarioEntity().getId()
+                docenteSalva.getUsuario().getId()
         );
     }
 
@@ -59,32 +63,62 @@ public class DocenteService {
     public List<DocenteEntity> buscarTodos(String token) {
         String nomePapel = tokenService.buscaCampo(token, "scope");
 
-        if (!Objects.equals(nomePapel, "PROFESSOR") && !Objects.equals(nomePapel, "ADMIN")) {
+        if (!Objects.equals(nomePapel, "PROFESSOR")
+                && !Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "RECRUTADOR")
+                && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
         }
-
-        Long idUsuario = Long.valueOf(
-                tokenService.buscaCampo(token, "sub")
-        );
 
         return docenteRepository.findAll();
     }
 
     //GET BY ID
+    public DocenteEntity buscarPorId(Long id, String token) {
+
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+        if (!Objects.equals(nomePapel, "PROFESSOR")
+                && !Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "RECRUTADOR")
+                && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+
+
+        return docenteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("ID não encontrado"));
+    }
+
     public DocenteEntity buscarPorId(Long id) {
+
+
         return docenteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ID não encontrado"));
     }
 
     //PUT
-    public DocenteEntity alterar(Long id, DocenteEntity docenteEntity) {
-        buscarPorId(id);
-        docenteEntity.setId(id);
-        return docenteRepository.save(docenteEntity);
+    public DocenteEntity alterar(Long id, AlterarDocenteRequest alterarDocenteRequest, String token) {
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+        if (!Objects.equals(nomePapel, "PROFESSOR")
+                && !Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "RECRUTADOR")
+                && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+        docenteRepository.updateDocenteParcial(id, alterarDocenteRequest.nome());
+        return docenteRepository.findById(id).orElseThrow(() -> new RuntimeException("Não foi possível recuperar o usuário"));
     }
 
     //DELETE
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long id, String token) {
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+        if (!Objects.equals(nomePapel, "PROFESSOR")
+                && !Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "RECRUTADOR")
+                && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+
         DocenteEntity docenteEntity = buscarPorId(id);
         docenteRepository.delete(docenteEntity);
     }
