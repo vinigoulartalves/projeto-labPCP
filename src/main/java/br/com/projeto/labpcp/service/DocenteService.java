@@ -24,9 +24,9 @@ public class DocenteService {
 
     //CREATE
     public DocenteResponse salvar(InserirDocenteRequest inserirDocenteRequest, String token) {
-        String nomePapel = tokenService.buscaCampo(token, "token");
+        String nomePapel = tokenService.buscaCampo(token, "scope");
 
-        if (!Objects.equals(nomePapel, "DOCENTE") && !Objects.equals(nomePapel, "ADMIN")) {
+        if (!Objects.equals(nomePapel, "PROFESSOR") && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
         }
 
@@ -56,7 +56,17 @@ public class DocenteService {
     }
 
     //GET ALL
-    public List<DocenteEntity> buscarTodos() {
+    public List<DocenteEntity> buscarTodos(String token) {
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+
+        if (!Objects.equals(nomePapel, "PROFESSOR") && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+
+        Long idUsuario = Long.valueOf(
+                tokenService.buscaCampo(token, "sub")
+        );
+
         return docenteRepository.findAll();
     }
 
