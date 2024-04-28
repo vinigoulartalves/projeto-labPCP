@@ -38,17 +38,17 @@ public class DocenteService {
                 tokenService.buscaCampo(token, "sub")
         );
 
-        UsuarioEntity usuario = usuarioRepository.findById(idUsuario)
+        usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+
+        UsuarioEntity usuarioDocente = usuarioRepository.findById(inserirDocenteRequest.id())
+                .orElseThrow(() -> new RuntimeException("Id não encontrado"));
+
         DocenteEntity docenteEntity = new DocenteEntity();
-        docenteEntity.setUsuario(usuario);
+        docenteEntity.setUsuario(usuarioDocente);
         docenteEntity.setNome(inserirDocenteRequest.nome());
         docenteEntity.setDataEntrada(inserirDocenteRequest.dataEntrada());
-        docenteEntity.setUsuario(
-                usuarioRepository.findById(idUsuario)
-                        .orElseThrow(() -> new RuntimeException("Usuário não encontrado ou inválido"))
-        );
 
         DocenteEntity docenteSalva = docenteRepository.save(docenteEntity);
 
