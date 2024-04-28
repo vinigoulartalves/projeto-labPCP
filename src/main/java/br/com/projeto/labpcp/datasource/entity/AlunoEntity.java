@@ -26,7 +26,7 @@ public class AlunoEntity {
     @JoinColumn(name = "id_usuario")
     private UsuarioEntity usuario;
 
-    @OneToMany //TODO TESTAR
+    @OneToMany
     @JoinTable(
             name = "aluno_turma",
             joinColumns = @JoinColumn(name = "id_aluno"),

@@ -53,7 +53,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getUsername();
+        return this.getLogin();
     }
 
     @Override

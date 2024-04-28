@@ -18,7 +18,6 @@ public class DocenteEntity {
     private String nome;
 
     @Column(name = "data_entrada", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date dataEntrada;
 
     @OneToOne(fetch = FetchType.EAGER)
