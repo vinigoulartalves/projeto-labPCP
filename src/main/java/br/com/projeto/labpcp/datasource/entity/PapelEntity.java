@@ -13,7 +13,7 @@ public class PapelEntity implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 50, unique = true)
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
 
     @Override

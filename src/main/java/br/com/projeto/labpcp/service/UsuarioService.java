@@ -28,6 +28,7 @@ public class UsuarioService {
             throw new RuntimeException("Usuario já existe");
         }
 
+
         UsuarioEntity usuario = new UsuarioEntity();
         usuario.setLogin(inserirUsuarioRequest.login());
         usuario.setSenha(bCryptEncoder.encode(inserirUsuarioRequest.senha()));
