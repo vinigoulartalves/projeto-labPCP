@@ -17,6 +17,6 @@ public class MateriaEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_curso")
-    private CursoEntity curso;
+    private CursoEntity idCurso;
 
 }
