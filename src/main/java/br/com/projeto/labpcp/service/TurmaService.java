@@ -1,5 +1,6 @@
 package br.com.projeto.labpcp.service;
 
+import br.com.projeto.labpcp.controller.dto.request.AlterarTurmaRequest;
 import br.com.projeto.labpcp.controller.dto.request.InserirTurmaRequest;
 import br.com.projeto.labpcp.controller.dto.response.DocenteResponse;
 import br.com.projeto.labpcp.controller.dto.response.TurmaResponse;
@@ -67,21 +68,51 @@ public class TurmaService {
 
     }
 
-    public List<TurmaEntity> buscarTodos() {
+    public List<TurmaEntity> buscarTodos(String token) {
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+
         return turmaRepository.findAll();
     }
 
-    public TurmaEntity buscarPorId(Long id) {
+    public TurmaEntity buscarPorId(Long id, String token) {
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+
         return turmaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ID não encontrado"));
     }
 
-    public void ExcluirPorId(Long id) {
+    public void excluirPorId(Long id, String token) {
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+
         turmaRepository.deleteById(id);
     }
 
-    public TurmaEntity alterar(TurmaEntity turma) {
-        return turmaRepository.save(turma);
+    public TurmaEntity alterar(Long id, AlterarTurmaRequest alterarTurmaRequest, String token) {
+        String nomePapel = tokenService.buscaCampo(token, "scope");
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
+                && !Objects.equals(nomePapel, "ADMIN")) {
+            throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
+        }
+
+        turmaRepository.updateTurmaParcial(id, alterarTurmaRequest.nome());
+        return turmaRepository.findById(id).orElseThrow(() -> new RuntimeException("Não foi possível recuperar o usuário"));
+
+
     }
 
 }
