@@ -9,10 +9,9 @@ import org.springframework.data.repository.query.Param;
 public interface MateriaRepository extends JpaRepository<MateriaEntity, Long> {
 
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE MateriaEntity e SET e.nome = COALESCE(:nome, e.nome), " +
-            "e.idCurso = COALESCE(:cursoId, e.idCurso) " +
+    @Query("UPDATE MateriaEntity e SET e.nome = COALESCE(:nome, e.nome) " +
             "WHERE e.id = :id")
-    void updateMateriaParcial(@Param("id") Long id, @Param("nome") String nome, @Param("cursoId") Long cursoId);
+    void updateMateriaParcial(@Param("id") Long id, @Param("nome") String nome);
 
 
 }

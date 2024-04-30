@@ -70,7 +70,7 @@ public class MateriaService {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
         }
 
-        materiaRepository.updateMateriaParcial(id, alterarMateriaRequest.nome(), alterarMateriaRequest.cursoId());
+        materiaRepository.updateMateriaParcial(id, alterarMateriaRequest.nome());
         return materiaRepository.findById(id).orElseThrow(() -> new RuntimeException("ID não encontrado"));
 
     }
