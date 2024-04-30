@@ -27,8 +27,7 @@ public class DocenteService {
     public DocenteResponse salvar(InserirDocenteRequest inserirDocenteRequest, String token) {
         String nomePapel = tokenService.buscaCampo(token, "scope");
 
-        if (!Objects.equals(nomePapel, "PROFESSOR")
-                && !Objects.equals(nomePapel, "PEDAGAGICO")
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
                 && !Objects.equals(nomePapel, "RECRUTADOR")
                 && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
@@ -63,8 +62,7 @@ public class DocenteService {
     public List<DocenteEntity> buscarTodos(String token) {
         String nomePapel = tokenService.buscaCampo(token, "scope");
 
-        if (!Objects.equals(nomePapel, "PROFESSOR")
-                && !Objects.equals(nomePapel, "PEDAGAGICO")
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
                 && !Objects.equals(nomePapel, "RECRUTADOR")
                 && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
@@ -77,8 +75,7 @@ public class DocenteService {
     public DocenteEntity buscarPorId(Long id, String token) {
 
         String nomePapel = tokenService.buscaCampo(token, "scope");
-        if (!Objects.equals(nomePapel, "PROFESSOR")
-                && !Objects.equals(nomePapel, "PEDAGAGICO")
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
                 && !Objects.equals(nomePapel, "RECRUTADOR")
                 && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
@@ -99,8 +96,7 @@ public class DocenteService {
     //PUT
     public DocenteEntity alterar(Long id, AlterarDocenteRequest alterarDocenteRequest, String token) {
         String nomePapel = tokenService.buscaCampo(token, "scope");
-        if (!Objects.equals(nomePapel, "PROFESSOR")
-                && !Objects.equals(nomePapel, "PEDAGAGICO")
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
                 && !Objects.equals(nomePapel, "RECRUTADOR")
                 && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
@@ -112,8 +108,7 @@ public class DocenteService {
     //DELETE
     public void excluirPorId(Long id, String token) {
         String nomePapel = tokenService.buscaCampo(token, "scope");
-        if (!Objects.equals(nomePapel, "PROFESSOR")
-                && !Objects.equals(nomePapel, "PEDAGAGICO")
+        if (!Objects.equals(nomePapel, "PEDAGAGICO")
                 && !Objects.equals(nomePapel, "RECRUTADOR")
                 && !Objects.equals(nomePapel, "ADMIN")) {
             throw new RuntimeException("Usuário não tem acesso a essa funcionalidade");
@@ -122,7 +117,6 @@ public class DocenteService {
         DocenteEntity docenteEntity = buscarPorId(id);
         docenteRepository.delete(docenteEntity);
     }
-
 }
 
 

@@ -17,18 +17,18 @@ public class NotaEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_aluno")
-    private AlunoEntity aluno;
+    private AlunoEntity idAluno;
 
     @ManyToOne
     @JoinColumn(name = "id_docente")
-    private DocenteEntity docente;
+    private DocenteEntity idDocente;
 
     @ManyToOne
     @JoinColumn(name = "id_materia")
-    private MateriaEntity materia;
+    private MateriaEntity idMateria;
 
     @Column(nullable = false)
-    private BigDecimal valor;
+    private BigDecimal nota;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)

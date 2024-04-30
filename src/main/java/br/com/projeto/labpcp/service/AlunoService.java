@@ -77,12 +77,6 @@ public class AlunoService {
     }
 
 
-    public AlunoEntity buscarPorId(Long id) {
-        return alunoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("ID não encontrado"));
-    }
-
-
     public List<AlunoEntity> buscarTodos(String token) {
         String nomePapel = tokenService.buscaCampo(token, "scope");
 

@@ -19,13 +19,13 @@ public class TurmaEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_docente")
-    private DocenteEntity docente;
+    private DocenteEntity idDocente;
 
     @OneToMany//(mappedBy = "turmas")
     private List<AlunoEntity> alunosMatriculados;
 
     @ManyToOne
     @JoinColumn(name = "id_curso")
-    private CursoEntity curso;
+    private CursoEntity idCurso;
 
 }
