@@ -16,4 +16,4 @@ VALUES (1, 'ADMIN', '$2a$12$aDfmCFK8eDZfJZTQ5fqkkuqRpxFtLQUPst68Td9MpHQcM4vidq9P
 
 
 - Os endpoint estão no arquivo "LabPCP.postman_collection.json" dentro da raiz do projeto;
-- OBS: O primeiro usuário criado dfai dar erro pela questão id unique, mas os proximos serão adicionados corretamente ao banco.
+- OBS: O primeiro usuário criado vai dar erro pela questão id unique, mas os proximos serão adicionados corretamente ao banco.
